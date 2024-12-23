@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="in"
+                 name="Kompute Documentation"
+                 start-page="introduction.md">
+
+    <toc-element topic="introduction.md" toc-title="Introduction"/>
+    <toc-element topic="Core-ideas.md"/>
+    <toc-element topic="Expression-System.md"/>
+</instance-profile>

@@ -1,129 +1,119 @@
 ![image](https://github.com/Independent-Society-of-Knowledge/Kompute/assets/76442288/3c1c723a-6ba8-407d-9dfa-407ffbf9bf87)
+## Introduction
 
-# Kompute README
+Kompute is the foundational computational engine designed to power the Kotlin-For-Science ecosystem. At its heart, Kompute represents a fundamental shift in how scientific computing can be approached in the Kotlin ecosystem, combining the elegance and safety of Kotlin with the performance demands of scientific computation.
 
-## Overview
+## Core Philosophy
 
-**Kompute** is the core computational engine of the Kotlin-For-Science ecosystem. It provides the fundamental numerical primitives and interfaces with high-performance C/C++ libraries to perform scientific computations efficiently. By leveraging Kotlin's expressive syntax, functional programming features, and native interoperability, Kompute enables a high-performance and type-safe environment for scientific research and computations.
+The driving philosophy behind Kompute is that scientific computing shouldn't require compromises between code clarity, type safety, and performance. Traditional scientific computing often forces developers to choose between writing clear, maintainable code and achieving optimal performance. Kompute aims to bridge this gap by providing a layer of abstraction that maintains Kotlin's strengths while delivering the performance expected in scientific computing.
 
-Kompute is modular and lightweight, offering optimized, type-safe, and immutable constructs for array handling, computations, and more. It is designed to seamlessly integrate with domain-specific libraries built on top of it, such as `LinAlgebra`, `DifferentialSolvers`, `OptiK`, and others, forming a robust scientific computation ecosystem.
+Kompute aims to provide a set of toolkit ranging from type definitions, optimization methods, integrations, and bindings. Which in our opinion would result in writing clean and efficient code for scientific research.
 
-## Key Features
+### Expression System: The Heart of Kompute
 
-- **Efficient Computational Engine**: Kompute provides a high-performance backend that handles numerical operations efficiently using precompiled C/C++ bindings (e.g., BLAS, LAPACK, FFTW).
-- **Immutable and Type-Safe**: Data structures and operations are designed to be immutable and type-safe, providing predictability and minimizing errors.
-- **Interoperability with C/C++**: Kompute integrates seamlessly with high-performance C/C++ libraries, making it possible to execute heavy computations without sacrificing performance.
-- **Modular Architecture**: Kompute serves as the foundation for a modular ecosystem, allowing users to build specialized tools for their specific needs (e.g., linear algebra, optimization, differential equations) without unnecessary dependencies.
-- **Multi-threaded Support**: Kompute supports multi-threading for concurrent computations, optimizing performance across multiple CPU cores.
+The core of Kompute is built around a powerful expression system. Unlike traditional numerical libraries that work directly with numbers and arrays, Kompute's expression system allows for symbolic representation of mathematical concepts. This approach enables several key capabilities:
 
-## Installation
+- Symbolic manipulation of mathematical expressions (through available symbolic computations kernels such as Mathematica)
+- Expression optimization before computation (Optimizing code to the scale of rewriting)
+- Seamless integration with higher-level mathematical concepts
 
-### Requirements
+For example, when you write an expression in Kompute, it exists first as a symbolic representation that can be analyzed, optimized, and transformed before any actual computation occurs. This allows Kompute to make intelligent decisions about how to compute the result most efficiently.
 
-- Kotlin 1.8+ 
-- JDK 11+
-- C/C++ compilers for native bindings
-- `gradle` for building
+The Expression system will be also a gateway into implementing an ecosystem of libraries that are built on top of Kompute and each other, making them both integrable with each other and efficient by nature.
 
-### Gradle Dependency
+### Intelligent Computation Strategy
 
-To use Kompute in your Kotlin project, add the following to your `build.gradle.kts` file:
+One of Kompute's most innovative features is its ability to make intelligent decisions about how computations should be performed. Rather than always using the same approach, Kompute analyzes each computation request and chooses the most efficient method based on multiple factors:
 
-```kotlin
-dependencies {
-    implementation("com.iskportal:kompute:1.0.0")
-}
-```
+- The size and structure of the data
+- The complexity of the operations
+- Available computational resources
+- Historical performance data
+- Current system load
 
-Replace `1.0.0` with the latest version of Kompute.
+For instance, when performing matrix multiplication, Kompute might choose between:
+1. Using native Kotlin code for small matrices
+2. Calling optimized BLAS libraries for larger matrices
+3. Utilizing GPU computation for massive matrices
+4. Distributing the computation across multiple threads
 
-## Usage
+This decision-making process is transparent to the user (although it is adjustable with users command) while ensuring optimal performance.
 
-Kompute provides basic functionalities such as array creation, element-wise operations, matrix operations, and more. Below is a simple example of how to perform basic array operations using Kompute:
+### Memory Optimization and Management
 
-### Example: Creating and manipulating arrays
+Scientific computing often involves large datasets and complex computations that can strain memory resources. Kompute takes a proactive approach to memory management through:
 
-```kotlin
-import com.kotlinforscience.kompute.*
+- Smart buffer allocation and reuse
+- Memory pooling for frequent operations
+- Cache-aware computation strategies
+- Intelligent garbage collection coordination
+- Automatic memory layout optimization
 
-fun main() {
-    // Create a 1D array
-    val array1 = KomputeArray(10)
-    array1.fill { it.toDouble() }
+These optimizations happen automatically (and manually), allowing developers to focus on their algorithms rather than memory management details.
 
-    // Create another array and add it element-wise to array1
-    val array2 = KomputeArray(10)
-    array2.fill { it * 2.0 }
+### Language Interoperability
 
-    // Perform element-wise addition
-    val result = array1 + array2
+Scientific computing has a rich history, with valuable libraries written in C, C++, and Fortran. Rather than reinventing these tested solutions, Kompute provides a sophisticated binding system that:
 
-    println("Result: $result")
-}
-```
+- Optimizes calls to native code to minimize overhead
+- Manages memory efficiently across language boundaries
+- Provides type-safe interfaces to untyped libraries
+- Batches operations to minimize cross-language calls
 
-### Example: Matrix Operations
+This means you can leverage existing high-performance libraries while writing clean, modern Kotlin code.
 
-```kotlin
-import com.kotlinforscience.kompute.*
+### Parallel Computing and GPU Integration
 
-fun main() {
-    // Create a 3x3 matrix
-    val matrix1 = KomputeMatrix(3, 3)
-    matrix1.fill { row, col -> row.toDouble() + col.toDouble() }
+Modern scientific computing often requires parallel processing capabilities. Kompute provides a unified approach to parallelism that includes:
 
-    // Create another matrix
-    val matrix2 = KomputeMatrix(3, 3)
-    matrix2.fill { row, col -> (row + 1).toDouble() * (col + 1).toDouble() }
+- Automatic thread management for CPU-based parallelism
+- GPU computation for suitable workloads
+- Distributed computing capabilities
+- Load balancing and work distribution
+- Resource monitoring and optimization
 
-    // Perform matrix multiplication
-    val result = matrix1 * matrix2
+The key innovation here is that Kompute handles the complexity of parallel computation while presenting a clean, sequential-looking API to the developer.
 
-    println("Matrix multiplication result: $result")
-}
-```
+### Type System and Safety
 
-Kompute provides operators and functions for various mathematical operations on arrays and matrices, including addition, multiplication, transposition, and more.
+Unlike many scientific computing libraries that sacrifice type safety for performance, Kompute maintains strong type safety while achieving high performance through:
 
-## Performance and Optimization
+- A sophisticated type system that captures mathematical properties
+- Compile-time validation of operations
+- Automatic type conversion when safe
+- Clear error messages when operations are invalid
+- Zero-cost abstractions where possible
 
-Kompute automatically uses precompiled C/C++ libraries for optimized mathematical operations. By linking to widely-used libraries such as BLAS and LAPACK, Kompute ensures that computations are fast and scalable. You do not need to worry about manually configuring these bindings, as Kompute handles it internally.
+### The Binding Decision Engine
 
-### Memory Management
+At the core of Kompute's performance is its binding decision engine. This system:
 
-Kompute uses Kotlin's native memory management features and integrates with optimized C/C++ memory allocations, ensuring efficient memory usage during computations.
+1. Analyzes each operation or series of operations
+2. Determines the optimal execution strategy
+3. Manages the execution across different computation backends
+4. Learns from previous execution results
+5. Adapts to changing conditions
 
-## Documentation
+This engine is what allows Kompute to provide optimal performance without requiring developer intervention.
 
-- **API Documentation**: The full API documentation is available on [Kotlin-For-Science Docs](https://kotlinforscience.com/docs).
-- **Tutorials and Guides**: Step-by-step tutorials are available for getting started with Kompute, as well as advanced use cases. Visit the [Kotlin-For-Science Tutorials](https://kotlinforscience.com/tutorials) to explore further.
-- **Example Projects**: Example projects using Kompute are available in the `examples` directory in the repository. These examples showcase a variety of use cases from basic array operations to complex numerical simulations.
+### Real-World Impact
 
-## Contributing
+The practical impact of Kompute's design is significant:
 
-We welcome contributions to Kompute! If you're interested in improving the engine, optimizing performance, or adding new features, feel free to submit a pull request. Before contributing, please make sure to:
+- Developers can write clear, maintainable code that performs at native speeds
+- Existing C/C++/Fortran libraries can be seamlessly integrated
+- Complex mathematical operations can be expressed clearly and executed efficiently
+- Memory usage is optimized automatically
+- Parallel computing capabilities are accessible without parallel programming complexity
 
-1. Fork the repository and clone it to your local machine.
-2. Run the tests to ensure that everything works as expected.
-3. Add or modify code with a focus on modularity and performance.
-4. Follow the project's coding guidelines and write clear, concise documentation.
+### Future Directions
 
-If you encounter any issues or have suggestions, feel free to open an issue on the [GitHub Issues Page](https://github.com/KotlinForScience/Kompute/issues).
+Kompute is designed to grow with the scientific computing ecosystem. Key areas of future development include:
 
-## License
+- Enhanced GPU computing capabilities
+- Expanded symbolic computation features
+- Additional library bindings
+- Improved distributed computing capabilities
+- Advanced optimization techniques
 
-Kompute is released under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
-
-## Acknowledgments
-
-Kompute relies on several powerful C/C++ libraries for its numerical computations, including:
-
-- BLAS (Basic Linear Algebra Subprograms)
-- LAPACK (Linear Algebra PACKage)
-- FFTW (Fast Fourier Transform in the West)
-
-We thank the maintainers of these libraries for their contributions to the scientific computing community.
-
----
-
-For more information and to explore the Kotlin-For-Science ecosystem, visit [KotlinForScience.com](https://kotlin.iskportal.com).
+In later section we would investigate each of these point separately.

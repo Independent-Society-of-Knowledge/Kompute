@@ -1,5 +1,4 @@
-![image](https://github.com/Independent-Society-of-Knowledge/Kompute/assets/76442288/3c1c723a-6ba8-407d-9dfa-407ffbf9bf87)
-## Introduction
+# Introduction
 
 Kompute is the foundational computational engine designed to power the Kotlin-For-Science ecosystem. At its heart, Kompute represents a fundamental shift in how scientific computing can be approached in the Kotlin ecosystem, combining the elegance and safety of Kotlin with the performance demands of scientific computation.
 
